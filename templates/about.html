@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>About</title>
+{% endblock %}
+
+{% block body %}
+<h1>{{data.name}}</h1>
+<img src={{data.photo}} itemprop="image" class="img-responsive">
+<p>{{data.description}}</p>
+<a href={{data.link}} target=new_tab>Ссылка на фильм</a><br><br>
+<button onclick="window.location.href = '/'">Back</button><br>
+{% endblock %}

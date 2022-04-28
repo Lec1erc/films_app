@@ -1,0 +1,15 @@
+*{box-sizing:border-box}
+body {
+marge 0 auto
+}
+
+.item {
+display: inline-block;
+margin-right: 5%;
+margin: 22px;
+}
+img {
+  width: 200px;
+  height: auto
+}
+

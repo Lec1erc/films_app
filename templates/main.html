@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Main</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+<p>Main</p>
+<div class="masonry-layout">
+    {% for el in data %}
+    <div class="item">
+        <div class="img">
+            <img src={{el.photo}} itemprop="image">
+            <div>
+                <a href="/about/{{el.id}}">{{el.name}}</a>
+            </div><br>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+<button onclick="window.location.href = '/add';">Add Film</button>
+{% endblock %}
