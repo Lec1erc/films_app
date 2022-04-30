@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from main.parser import Parser
 
 
 app = Flask(__name__)
@@ -34,10 +35,13 @@ def about(id):
 @app.route("/add", methods=["POST", "GET"])
 def add_film():
     if request.method == "POST":
-        name = request.form["name"]
-        description = request.form["description"]
         link = request.form["link"]
-        item = Item(name=name, description=description, link=link)
+        data = Parser(link)
+        item = Item(name=data.response()[0],
+                    description=data.response()[1],
+                    link=link,
+                    photo=data.response()[2]
+                    )
         try:
             db.session.add(item)
             db.session.commit()
@@ -48,4 +52,4 @@ def add_film():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080)
+    app.run(host="127.0.0.1", port=8080, debug=True)
