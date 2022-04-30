@@ -7,7 +7,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@localhost:3300/films
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-#id film_name, film_description, film_link
+
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -24,10 +24,12 @@ def main():
     items = Item.query.order_by(Item.id).all()
     return render_template("main.html", data=items)
 
+
 @app.route("/about/<int:id>", methods=["GET"])
 def about(id):
     items = Item.query.get(int(id))
     return render_template("about.html", data=items)
+
 
 @app.route("/add", methods=["POST", "GET"])
 def add_film():
