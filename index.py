@@ -4,8 +4,8 @@ from main.parser import Parser
 
 
 app = Flask(__name__)
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@host.docker.internal:3300/films"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@localhost:3300/films"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@host.docker.internal:3300/films"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost:3300/films"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
