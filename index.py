@@ -4,6 +4,7 @@ from main.parser import Parser
 
 
 app = Flask(__name__)
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@host.docker.internal:3300/films"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@localhost:3300/films"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -32,6 +33,10 @@ def about(id):
     return render_template("about.html", data=items)
 
 
+@app.route("/test", methods=["GET"])
+def test():
+    return "Test success"
+
 @app.route("/add", methods=["POST", "GET"])
 def add_film():
     if request.method == "POST":
@@ -52,4 +57,4 @@ def add_film():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
