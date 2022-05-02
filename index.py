@@ -4,7 +4,8 @@ from main.parser import Parser
 from main.models import Item
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost:3300/films"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@host.docker.internal:3300/films"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@localhost:3300/films"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -48,4 +49,4 @@ def min():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
