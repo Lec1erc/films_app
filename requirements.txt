@@ -1,2 +1,5 @@
 Flask
 Flask-SQLAlchemy
+mysqlclient
+requests
+flask_login

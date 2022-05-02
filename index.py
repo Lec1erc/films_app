@@ -1,22 +1,12 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-
+from main.parser import Parser
+from main.models import Item
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:admin@localhost:3300/films"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost:3300/films"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
-
-class Item(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-    link = db.Column(db.String(200))
-    photo = db.Column(db.String(200))
-
-    def __repr__(self):
-        return self.name
 
 
 @app.route("/", methods=["GET"])
@@ -34,10 +24,13 @@ def about(id):
 @app.route("/add", methods=["POST", "GET"])
 def add_film():
     if request.method == "POST":
-        name = request.form["name"]
-        description = request.form["description"]
         link = request.form["link"]
-        item = Item(name=name, description=description, link=link)
+        data = Parser(link)
+        item = Item(name=data.response()[0],
+                    description=data.response()[1],
+                    link=link,
+                    photo=data.response()[2]
+                    )
         try:
             db.session.add(item)
             db.session.commit()
@@ -47,5 +40,12 @@ def add_film():
     return render_template("add.html")
 
 
+@app.route("/login", methods=["GET"])
+def min():
+    items = Item.query.order_by(Item.id).all()
+    return render_template("login.html")
+
+
+
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080)
+    app.run(host="127.0.0.1", port=8080, debug=True)
