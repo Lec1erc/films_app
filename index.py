@@ -33,10 +33,6 @@ def about(id):
     return render_template("about.html", data=items)
 
 
-@app.route("/test", methods=["GET"])
-def test():
-    return "Test success"
-
 @app.route("/add", methods=["POST", "GET"])
 def add_film():
     if request.method == "POST":
