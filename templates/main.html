@@ -6,7 +6,15 @@
 {% endblock %}
 
 {% block body %}
+{% if name.name %}
+<button onclick="window.location.href = '/logout';">logout</button>
+{% else %}
+<button onclick="window.location.href = '/login';">login</button>
+<button onclick="window.location.href = '/signup';">signup</button>
+{% endif %}
 <p>Main</p>
+
+<p>{{name}}</p>
 <div class="masonry-layout">
     {% for el in data %}
     <div class="item">
@@ -20,6 +28,7 @@
 
     {% endfor %}
 </div>
-
+{% if name.name %}
 <button onclick="window.location.href = '/add';">Add Film</button>
+{% endif %}
 {% endblock %}

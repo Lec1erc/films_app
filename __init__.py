@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 # init SQLAlchemy so we can use it later in our models
 #db = SQLAlchemy()
-
 
 
 app = Flask(__name__)
@@ -29,12 +28,11 @@ def load_user(user_id):
 # blueprint for auth routes in our app
 from auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)#, url_prefix='/auth'
-
 # blueprint for non-auth parts of app
 from index import base as base_blueprint
 app.register_blueprint(base_blueprint)
 
-
+#
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8080, debug=True)
 
